@@ -1,0 +1,5 @@
+{
+    "enabled": true,
+    "provider": "Cysha\\Modules\\Faq\\ServiceProvider",
+    "order": 5
+}
