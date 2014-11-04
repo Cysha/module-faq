@@ -20,7 +20,7 @@
                 <span class="pull-right clickable"><a data-title="Quick link to this question" data-toggle="tooltip" class="question" href="#{{ Str::slug(array_get($question, 'question')) }}" data-original-title="" title=""><i class="glyphicon glyphicon-link"></i></a></span>
             </div>
             <div class="panel-body">
-                {{ Str::slug(array_get($question, 'answer')) }}
+                {{ array_get($question, 'answer') }}
             </div>
         </div>
     @endforeach
