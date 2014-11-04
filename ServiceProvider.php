@@ -8,7 +8,17 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         //$this->registerOtherPackages();
+        $this->registerRepositories();
     }
+
+    public function registerRepositories()
+    {
+        $this->app->bind(
+            'Cysha\Modules\Faq\Repositories\Category\RepositoryInterface',
+            'Cysha\Modules\Faq\Repositories\Category\DbRepository'
+        );
+    }
+
 
     private function registerOtherPackages()
     {

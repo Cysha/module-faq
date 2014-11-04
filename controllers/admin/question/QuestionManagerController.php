@@ -1,11 +1,10 @@
 <?php namespace Cysha\Modules\Faq\Controllers\Admin\Question;
 
-use Cysha\Modules\Faq\Controllers\Admin\BaseAdminController;
 use Cysha\Modules\Faq as Faq;
 use Auth;
 use URL;
 
-class QuestionManagerController extends BaseAdminController
+class QuestionManagerController extends BaseQuestionController
 {
     use \Cysha\Modules\Admin\Traits\DataTableTrait;
 
@@ -27,6 +26,17 @@ class QuestionManagerController extends BaseAdminController
             }
         ]);
 
+        $this->setActions([
+            'header' => [
+                [
+                    'btn-text'  => 'Create Question',
+                    'btn-link'  => URL::Route('faq.question.add'),
+                    'btn-class' => 'btn btn-info btn-labeled',
+                    'btn-icon'  => 'fa fa-plus'
+                ],
+            ],
+        ]);
+
         $this->setTableColumns([
             'id' => [
                 'th'        => '&nbsp;',
@@ -40,6 +50,15 @@ class QuestionManagerController extends BaseAdminController
                 'th'        => 'Category',
                 'tr'        => function ($model) {
                     return $model->category->name;
+                },
+                'sorting'   => true,
+                'filtering' => true,
+                'width'     => '15%',
+            ],
+            'question' => [
+                'th'        => 'Question',
+                'tr'        => function ($model) {
+                    return $model->question;
                 },
                 'sorting'   => true,
                 'filtering' => true,
@@ -60,17 +79,17 @@ class QuestionManagerController extends BaseAdminController
                 'tr' => function ($model) {
                     return [[
                         'btn-text'  => 'Edit',
-                        'btn-link'  => ( \URL::route('faq.question.view', ['question_id' => $model->id]) ),
+                        'btn-link'  => ( \URL::route('faq.question.edit', ['question_id' => $model->id]) ),
                         'btn-class' => ( 'btn btn-warning btn-sm btn-labeled' ),
                         'btn-icon'  => 'fa fa-pencil'
                     ], [
-                        'btn-text'  => ( $model->active == true ? 'Disable' : 'Enable' ),
-                        'btn-link'  => ( \URL::route('faq.question.toggle', ['question_id' => $model->id]) ),
-                        'btn-class' => ( $model->active == true ? 'btn-warning' : 'btn-success' ).'btn btn-sm btn-labeled',
-                        'btn-icon'  => 'fa fa-pencil'
+                        'btn-text'  => ($model->active == true ? 'Disable' : 'Enable'),
+                        'btn-link'  => (\URL::route('faq.question.toggle', ['question_id' => $model->id])),
+                        'btn-class' => ($model->active == true ? 'btn-primary' : 'btn-success').' btn btn-sm btn-labeled',
+                        'btn-icon'  => ($model->active == true ? 'fa fa-lock' : 'fa fa-unlock')
                     ]];
                 },
-                'width' => '7%',
+                'width' => '10%',
             ]
         ]);
 

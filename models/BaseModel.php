@@ -5,12 +5,6 @@ use Cysha\Modules\Core\Models\BaseModel as CoreBaseModel;
 class BaseModel extends CoreBaseModel
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
 
     public function getActiveAttribute($value)
     {

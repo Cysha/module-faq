@@ -4,7 +4,7 @@ use Cysha\Modules\Faq as Faq;
 use Auth;
 use URL;
 
-class CategoryManagerController extends BaseAdminController
+class CategoryManagerController extends BaseCategoryController
 {
     use \Cysha\Modules\Admin\Traits\DataTableTrait;
 
@@ -12,7 +12,6 @@ class CategoryManagerController extends BaseAdminController
     {
         parent::__construct();
 
-        $this->objTheme->setTitle('FAQ Category Manager');
         $this->assets();
 
         $this->setTableOptions([
@@ -22,8 +21,19 @@ class CategoryManagerController extends BaseAdminController
             'sort_column'   => 'id',
             'source'        => URL::route('faq.category.ajax'),
             'collection'    => function () {
-                return Contact\Models\Contact::all();
+                return Faq\Models\Category::all();
             }
+        ]);
+
+        $this->setActions([
+            'header' => [
+                [
+                    'btn-text'  => 'Create Category',
+                    'btn-link'  => URL::Route('faq.category.add'),
+                    'btn-class' => 'btn btn-info btn-labeled',
+                    'btn-icon'  => 'fa fa-plus'
+                ],
+            ],
         ]);
 
         $this->setTableColumns([
@@ -42,38 +52,43 @@ class CategoryManagerController extends BaseAdminController
                 },
                 'sorting'   => true,
                 'filtering' => true,
-                'width'     => '15%',
+                'width'     => '25%',
             ],
             'slug' => [
                 'th'        => 'Slug <i class="fa fa-external-link"></i>',
                 'tr'        => function ($model) {
-                    return sprintf('<a href="%s" target="category.preview">%s</a>', Route::to($model['slug']), $model['slug']);
+                    $model = $model->transform();
+                    return sprintf('<a href="%s" target="pages.preview">%s</a>', $model['href'], $model['slug']);
                 },
                 'sorting'   => true,
                 'filtering' => true,
-                'width'     => '15%',
+                'width'     => '25%',
             ],
-            'created_at' => [
-                'alias'     => 'created',
-                'th'        => 'Date Created',
+            'question' => [
+                'th'        => 'Question Counter',
                 'tr'        => function ($model) {
-                    return date_fuzzy($model->created_at);
+                    return $model->question->count();
                 },
-                'th-class'  => 'hidden-xs hidden-sm',
-                'tr-class'  => 'hidden-xs hidden-sm',
-                'width'     => '15%',
+                'sorting'   => true,
+                'filtering' => true,
+                'width'     => '5%',
             ],
             'actions' => [
                 'th' => 'Actions',
                 'tr' => function ($model) {
                     return [[
-                        'btn-text'  => 'View',
-                        'btn-link'  => ( \URL::route('faq.category.view', ['category_id' => $model->id]) ),
+                        'btn-text'  => 'Edit',
+                        'btn-link'  => ( \URL::route('faq.category.edit', ['category_id' => $model->id]) ),
                         'btn-class' => ( 'btn btn-warning btn-sm btn-labeled' ),
                         'btn-icon'  => 'fa fa-pencil'
+                    ], [
+                        'btn-text'  => ($model->active == true ? 'Disable' : 'Enable'),
+                        'btn-link'  => (\URL::route('faq.category.toggle', ['category_id' => $model->id])),
+                        'btn-class' => ($model->active == true ? 'btn-primary' : 'btn-success').' btn btn-sm btn-labeled',
+                        'btn-icon'  => ($model->active == true ? 'fa fa-lock' : 'fa fa-unlock')
                     ]];
                 },
-                'width' => '7%',
+                'width' => '12%',
             ]
         ]);
 

@@ -4,7 +4,8 @@ return array(
 
     'acp_menu' => array(
         'FAQs'          => array(
-            'faq.question.index' => '<i class="fa fa-file-o"></i> Manage Questions',
+            'faq.category.index' => '<i class="fa fa-file-o"></i> Categories',
+            'faq.question.index' => '<i class="fa fa-file-o"></i> Questions',
         ),
     ),
 
