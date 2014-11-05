@@ -1,5 +1,5 @@
 <div class="col-md-8">
-{{ Former::open()->action(URL::Route('faq.category.add')) }}
+{{ Former::open() }}
 
     {{ Former::text('name')->label('Name')->required() }}
     {{ Former::text('slug')->prepend(str_replace(Request::path(), '', Request::url()).'frequently-asked-questions/') }}

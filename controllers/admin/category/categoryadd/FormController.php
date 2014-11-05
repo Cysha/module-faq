@@ -24,7 +24,7 @@ class FormController extends BaseCategoryController
             return Redirect::back()->withErrors($objCategory->getErrors());
         }
 
-        return Redirect::route('faq.category.edit', $objCategory->id)->withInfo('Category Added');
+        return Redirect::route('faq.category.add')->withInfo('Category Added');
     }
 
 }

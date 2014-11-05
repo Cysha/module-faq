@@ -1,5 +1,5 @@
 <div class="col-md-8">
-{{ Former::open()->action(URL::Route('faq.question.add')) }}
+{{ Former::open() }}
 
     {{ Former::select('category_id')->fromQuery($categories, 'name')->label('Category')->required() }}
     {{ Former::text('question')->label('Question')->required() }}

@@ -26,7 +26,7 @@ class FormController extends BaseQuestionController
             return Redirect::back()->withErrors($objQuestion->getErrors());
         }
 
-        return Redirect::route('faq.question.edit', $objQuestion->id)->withInfo('Question Added');
+        return Redirect::route('faq.question.add')->withInfo('Question Added');
     }
 
 }

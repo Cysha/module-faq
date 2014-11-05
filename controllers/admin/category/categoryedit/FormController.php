@@ -22,7 +22,7 @@ class FormController extends BaseCategoryController
             return Redirect::back()->withErrors($objCategory->getErrors());
         }
 
-        return Redirect::route('admin.category.form', $objCategory->id)->withInfo('Category Updated');
+        return Redirect::route('faq.category.edit', $objCategory->id)->withInfo('Category Updated');
     }
 
 }
