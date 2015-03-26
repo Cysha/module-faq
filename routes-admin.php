@@ -9,8 +9,8 @@ Route::group(['prefix' => 'admin'], function () use ($namespace) {
         Route::group(['prefix' => 'category'], function () use ($namespace) {
             $namespace .= '\Category';
 
-            Route::model('category_id', 'Cysha\Modules\Faq\Models\Category');
-            Route::group(['prefix' => '{category_id}'], function () use ($namespace) {
+            Route::model('faq_category_id', 'Cysha\Modules\Faq\Models\Category');
+            Route::group(['prefix' => '{faq_category_id}'], function () use ($namespace) {
                 Route::get('toggle', ['as' => 'faq.category.toggle', 'uses' => $namespace.'\CategoryController@toggleActive']);
 
                 Route::group(['prefix' => 'edit'], function () use ($namespace) {
@@ -35,8 +35,8 @@ Route::group(['prefix' => 'admin'], function () use ($namespace) {
         Route::group(['prefix' => 'question'], function () use ($namespace) {
             $namespace .= '\Question';
 
-            Route::model('question_id', 'Cysha\Modules\Faq\Models\Question');
-            Route::group(['prefix' => '{question_id}'], function () use ($namespace) {
+            Route::model('faq_question_id', 'Cysha\Modules\Faq\Models\Question');
+            Route::group(['prefix' => '{faq_question_id}'], function () use ($namespace) {
                 Route::get('view', ['as' => 'faq.question.view', 'uses' => $namespace.'\QuestionController@getView']);
                 Route::get('toggle', ['as' => 'faq.question.toggle', 'uses' => $namespace.'\QuestionController@toggleActive']);
 
